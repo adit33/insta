@@ -11,6 +11,21 @@
                     <form class="form-horizontal" enctype='multipart/form-data' method="POST" action="{{ route('schedule.store') }}">
                         {{ csrf_field() }}
 
+                        <div class="container">
+    <div class="row">
+        <div class='col-sm-6'>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' name="time" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
                         <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Akun</label>
 
@@ -68,4 +83,18 @@
         </div>
     </div>
 </div>
+
+
 @endsection
+
+
+@push('scripts')
+ <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker({
+                    format:'YYYY-MM-DD HH:mm'
+                });
+            });
+        </script>
+@endpush
+

@@ -24,3 +24,5 @@ Route::get('test',function(){
 });
 
 Route::resource('instaaccount','InstaAccountController');
+
+Route::resource('schedule','ScheduleController');
