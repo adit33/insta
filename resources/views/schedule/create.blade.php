@@ -33,7 +33,7 @@
                                 <select name="insta_account_id" class="form-control" id="">
                                     <option value="">Select Akun</option>
                                     @foreach(App\Models\InstaAccount::all() as $account)
-                                        <option value="{{ $account->user_id }}">{{ $account->user_id }}</option>
+                                        <option value="{{ $account->id }}">{{ $account->user_id }}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('user_id'))
