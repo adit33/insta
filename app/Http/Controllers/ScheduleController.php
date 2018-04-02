@@ -8,6 +8,8 @@ use App\Models\Schedule;
 
 use App\Action;
 
+use App\Jobs\Upload;
+
 use Image;
 
 use File;
@@ -23,19 +25,21 @@ class ScheduleController extends Controller
     }
 
     public function store(Request $request){
-    	$file=$request->file('photo');
-    	$path='img';
-    	$ext=$file->getClientOriginalExtension();
-    	$name=str_random(10).'.'.$ext;
-    	$image=Image::make($file);
-    	$image->save(public_path().'/'.$path.DIRECTORY_SEPARATOR.$name);
+    	// $file=$request->file('photo');
+    	// $path='img';
+    	// $ext=$file->getClientOriginalExtension();
+    	// $name=str_random(10).'.'.$ext;
+    	// $image=Image::make($file);
+    	// $image->save(public_path().'/'.$path.DIRECTORY_SEPARATOR.$name);
 
-    	Schedule::create([
-    		'insta_account_id'=>$request->input('insta_account_id'),
-    		'caption'=>$request->input('caption'),
-    		'time'=>date('Y-m-d H:i',strtotime($request->input('time'))),
-    		'photo'=>$path.DIRECTORY_SEPARATOR.$name
-    	]);
+    	// $schedule=Schedule::create([
+    	// 	'insta_account_id'=>$request->input('insta_account_id'),
+    	// 	'caption'=>$request->input('caption'),
+    	// 	'time'=>date('Y-m-d H:i',strtotime($request->input('time'))),
+    	// 	'photo'=>$path.DIRECTORY_SEPARATOR.$name
+    	// ]);
+
+    	Upload::dispatch();
     }
 
     public function runSchedule(){

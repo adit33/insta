@@ -24,8 +24,12 @@ class Schedule extends Model
    }
 
    public function uploadPhoto(){
-    	$schedules=Schedule::with('instaAccount')->get();
-    	\InstagramAPI\Instagram::$allowDangerousWebUsageAtMyOwnRisk = true;
+   		date_default_timezone_set('Asia/Jakarta');
+    	
+    	$schedules=Schedule::with('instaAccount')->where('time','=',date('Y-m-d H:i'))->get();
+
+    	if(count($schedules) > 0){
+    		\InstagramAPI\Instagram::$allowDangerousWebUsageAtMyOwnRisk = true;
     	// $action = new Action;
     	// $action->uploadPhoto($schedules);
     	$username = '';
@@ -56,6 +60,9 @@ class Schedule extends Model
 					    echo 'Something went wrong: '.$e->getMessage()."\n";
 			}
 		}
+	}{
+		echo "nope";
+	}
    }
 
 }
