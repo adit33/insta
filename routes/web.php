@@ -20,7 +20,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('test',function(){
-	return view('test');
+	date_default_timezone_set('Asia/Jakarta');
+	$schedules=App\Models\Schedule::with('instaAccount')->get();
+	echo dd($schedules);
 });
 
 Route::resource('instaaccount','InstaAccountController');

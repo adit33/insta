@@ -16,7 +16,9 @@ class CreateScheduleTable extends Migration
         Schema::create('schedule', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('insta_account_id');
-            $table->time('time');
+            $table->text('photo');
+            $table->text('caption')
+;            $table->time('time');
             $table->enum('status',['active','inactive']);
             $table->timestamps();
         });

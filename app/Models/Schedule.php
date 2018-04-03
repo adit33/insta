@@ -14,19 +14,20 @@ use Crypt;
 
 use Carbon;
 
+use App\Jobs\Upload;
+
 class Schedule extends Model
 {
    protected $table='schedules';
    protected $fillable=['insta_account_id','time','photo','status','caption'];
 
-   public function instaAccount(){
-   		return $this->belongsTo('App\Models\InstaAccount','insta_account_id','id');
-   }
-
+  
    public function uploadPhoto(){
    		date_default_timezone_set('Asia/Jakarta');
     	
-    	$schedules=Schedule::with('instaAccount')->where('time','=',date('Y-m-d H:i'))->get();
+    	$schedules=Schedule::with('instaAccount')->get();
+
+    	// $schedules=Schedule::with('instaAccount')->whereRaw('DATE_FORMAT(DATE_SUB(time,INTERVAL 248 MINUTE), "%Y-%m-%d %H:%i") = DATE_FORMAT( ?, "%Y-%m-%d %H:%i")',[date('Y-m-d H:i')])->get();
 
     	if(count($schedules) > 0){
     		\InstagramAPI\Instagram::$allowDangerousWebUsageAtMyOwnRisk = true;
@@ -46,23 +47,16 @@ class Schedule extends Model
 		// if you want only a caption, you can simply do this:
 		
 		foreach ($schedules as $schedule) {
-			try {
-			   	$ig->login($schedule->instaAccount->user_id,Crypt::decrypt($schedule->instaAccount->password));
-			} catch (\Exception $e) {
-				    echo 'Something went wrong: '.$e->getMessage()."\n";
-			    exit(0);
+			dispatch(new Upload($schedule->toArray()));
 			}
-			try {
-						$photoFilename=public_path($schedule->photo);
-						$metadata = ['caption' => $schedule->caption];
-						$ig->timeline->uploadPhoto($photoFilename, $metadata);
-			} catch (\Exception $e) {
-					    echo 'Something went wrong: '.$e->getMessage()."\n";
-			}
+		}else{
+			echo "nope";
 		}
-	}{
-		echo "nope";
-	}
    }
+
+    public function instaAccount(){
+   		return $this->belongsTo('App\Models\InstaAccount','insta_account_id','id');
+   }
+
 
 }
