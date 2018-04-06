@@ -10,7 +10,10 @@
         "intervention/image": "^2.4",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "mgp25/instagram-php": "dev-master"
+        "laravelcollective/html": "^5.4.0",
+        "mgp25/instagram-php": "dev-master",
+        "yajra/laravel-datatables-buttons": "^3.0",
+        "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

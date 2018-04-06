@@ -10,6 +10,8 @@ use App\Action;
 
 use App\Jobs\Upload;
 
+use App\DataTables\ScheduleDataTable;
+
 use Image;
 
 use File;
@@ -20,25 +22,40 @@ use Carbon;
 
 class ScheduleController extends Controller
 {
+	public function __construct(Schedule $schedule){
+		$this->schedule=$schedule;
+		
+	}
+
+	public function index(ScheduleDataTable $dataTable){
+		return $dataTable->render('schedule.index');
+	}
+
     public function create(){
     	return view('schedule.create');
     }
 
     public function store(Request $request){
-    	$file=$request->file('photo');
-    	$path='img';
-    	$ext=$file->getClientOriginalExtension();
-    	$name=str_random(10).'.'.$ext;
-    	$image=Image::make($file);
-    	$image->save(public_path().'/'.$path.DIRECTORY_SEPARATOR.$name);
+    	$schedule=new Schedule;
+    	$this->schedule->saveSchedule($schedule,$request);
+    	return redirect()->route('schedule.index');
+    }
 
-    	$schedule=Schedule::create([
-    		'insta_account_id'=>$request->input('insta_account_id'),
-    		'caption'=>$request->input('caption'),
-    		'time'=>date('Y-m-d H:i',strtotime($request->input('time'))),
-    		'photo'=>$path.DIRECTORY_SEPARATOR.$name
-    	]);
+    public function edit($id){
+    	$schedule=Schedule::find($id);
+    	return view('schedule.edit',compact('schedule'));
+    }
 
+    public function update($id,Request $Request){
+    	$schedule=Schedule::find($id);
+    	$this->schedule->saveSchedule($schedule,$request);
+    	return redirect()->route('schedule.index');
+    }
+
+    public function destroy(){
+    	$schedule=Scedhule::find($id);
+    	$schedule->delete();
+    	return redirect()->route('schedule.index');
     }
 
     public function runSchedule(){

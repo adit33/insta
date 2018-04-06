@@ -14,12 +14,26 @@ use Crypt;
 
 use Carbon;
 
+use ImageHelper;
+
 use App\Jobs\Upload;
 
 class Schedule extends Model
 {
    protected $table='schedules';
    protected $fillable=['insta_account_id','time','photo','status','caption'];
+
+   public function saveSchedule($schedule,$request){
+   		$file=$request->file('photo');
+
+   		$image=new ImageHelper($file);
+
+    	$schedule->insta_account_id=$request->input('insta_account_id');
+    	$schedule->caption=$request->input('caption');
+    	$schedule->time=date('Y-m-d H:i',strtotime($request->input('time')));
+    	$schedule->photo=$image->saveImage();
+    	$schedule->save();
+   }
 
   
    public function uploadPhoto(){
