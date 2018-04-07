@@ -8,7 +8,7 @@
                 <div class="panel-heading">Register Account Instagram</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('instaaccount.store') }}">
+                    {!! Form::model($insta_account,['url'=>route('instaaccount.update',$insta_account->id),'class'=>'form-horizontal','method'=>'PUT']) !!}
                         {{ csrf_field() }}
 
                        @include('insta_account._form')

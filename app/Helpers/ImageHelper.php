@@ -32,10 +32,8 @@
 		public function saveImage(){
 			$name=$this->setName();
 			$path=$this->setPath();
-			// $image=Image::make($this->image);
-			// $image->save($path.DIRECTORY_SEPARATOR.$name);	
-			Storage::disk('public')->put('img/',$this->image);
-
+			$image=Image::make($this->image);
+			$image->save($path.DIRECTORY_SEPARATOR.$name);	
 			return $name;
 		}
 

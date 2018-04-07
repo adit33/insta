@@ -77,6 +77,24 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
+    <script>
+        $(document.body).on('click', '.js-submit-confirm', function(event) {
+          event.preventDefault();
+          var $form = $(this).closest('form');
+          swal({
+          title: "Are you sure?",
+          text: "you will not be able to recover this data!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            $form.submit();
+          }
+        });
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>

@@ -26,6 +26,7 @@
         "datatables.net-responsive": "^2.2.1",
         "datatables.net-responsive-bs": "^2.2.1",
         "eonasdan-bootstrap-datetimepicker": "^4.17.47",
-        "moment": "^2.21.0"
+        "moment": "^2.21.0",
+        "sweetalert": "^2.1.0"
     }
 }
