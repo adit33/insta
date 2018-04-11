@@ -25,6 +25,7 @@ class InstaAccountController extends Controller
     }
 
     public function store(Request $request){
+        $insta_account=new InstaAccount;
     	$request->validate([
 	        'user_id' => 'required|unique:insta_accounts',
 	        'password' => 'required|confirmed',
@@ -32,6 +33,8 @@ class InstaAccountController extends Controller
     	]);
 
         $this->insta_account->saveInstaAccount($insta_account,$request);
+
+        return redirect()->route('instaaccount.index');
 
     }
 

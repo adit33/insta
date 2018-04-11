@@ -11,20 +11,29 @@
                     <form class="form-horizontal" enctype='multipart/form-data' method="POST" action="{{ route('schedule.store') }}">
                         {{ csrf_field() }}
 
-                        <div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
+         @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
+                        <div class="form-group">
+                            <label for="password-confirm" class="col-md-4 control-label">Tanggal</label>
+
+                            <div class="col-md-6">
+                               <div class='input-group date' id='datetimepicker1'>
                     <input type='text' name="time" class="form-control" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+                            </div>
+                        </div>
 
                         <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Akun</label>
@@ -58,22 +67,15 @@
                             <label for="password-confirm" class="col-md-4 control-label">Caption</label>
 
                             <div class="col-md-6">
-                                <input type="text" name="caption" class="form-control">
+                                <textarea name="caption" class="form-control"></textarea>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Tanggal</label>
-
-                            <div class="col-md-6">
-                                <input type="text" name="date" class="form-control">
-                            </div>
-                        </div>
-
+            
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Save
                                 </button>
                             </div>
                         </div>

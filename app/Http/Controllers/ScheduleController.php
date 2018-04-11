@@ -20,6 +20,8 @@ use Crypt;
 
 use Carbon;
 
+use App\Http\Requests\ScheduleRequest;
+
 class ScheduleController extends Controller
 {
 	public function __construct(Schedule $schedule){
@@ -35,7 +37,7 @@ class ScheduleController extends Controller
     	return view('schedule.create');
     }
 
-    public function store(Request $request){
+    public function store(ScheduleRequest $request){
     	$schedule=new Schedule;
     	$this->schedule->saveSchedule($schedule,$request);
     	return redirect()->route('schedule.index');

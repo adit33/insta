@@ -18,7 +18,7 @@ class ScheduleDataTable extends DataTable
     {
         return datatables($query)
         ->editColumn('photo',function($query){
-            return '<img src="'.Storage::url('img/'.$query->photo).'" style="width: 128px; height: 128px;"></img>';
+            return '<img src="'.asset('img/'.$query->photo).'" style="width: 128px; height: 128px;"></img>';
         })
             ->addColumn('action', function($query){
                 return '<a href="'.route('schedule.edit',$query->id).'">Edit</a>';

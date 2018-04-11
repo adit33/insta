@@ -6,6 +6,10 @@
 @import "variables";
 
 // Bootstrap
+@fa-font-path:   "./fonts";
+
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
 @import "~eonasdan-bootstrap-datetimepicker/src/sass/bootstrap-datetimepicker-build.scss";
+
+@import "~font-awesome/scss/font-awesome.scss";
