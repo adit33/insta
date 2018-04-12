@@ -5,7 +5,7 @@ namespace App\DataTables;
 use App\Models\Schedule;
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Support\Facades\Storage;
-
+use Form;
 class ScheduleDataTable extends DataTable
 {
     /**
@@ -21,7 +21,14 @@ class ScheduleDataTable extends DataTable
             return '<img src="'.asset('img/'.$query->photo).'" style="width: 128px; height: 128px;"></img>';
         })
             ->addColumn('action', function($query){
-                return '<a href="'.route('schedule.edit',$query->id).'">Edit</a>';
+                return '<button class="btn btn-xs btn-primary" href="'.route('schedule.edit',$query->id).'">Edit</button>'
+                   .Form::open([
+                "method" => "DELETE",
+                "id"     =>"form-delete",
+                "route"  => ["schedule.destroy", $query->id],
+                "style"  => "display:inline"
+                ])
+                .Form::submit('Delete',['class'=>'btn btn-sm btn-danger js-submit-confirm']).'';;
             })
             ->rawColumns(['photo','action']);
     }

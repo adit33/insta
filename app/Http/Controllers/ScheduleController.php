@@ -54,8 +54,8 @@ class ScheduleController extends Controller
     	return redirect()->route('schedule.index');
     }
 
-    public function destroy(){
-    	$schedule=Scedhule::find($id);
+    public function destroy($id){
+    	$schedule=Schedule::find($id);
     	$schedule->delete();
     	return redirect()->route('schedule.index');
     }
