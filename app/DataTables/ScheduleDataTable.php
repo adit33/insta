@@ -21,7 +21,7 @@ class ScheduleDataTable extends DataTable
             return '<img src="'.asset('img/'.$query->photo).'" style="width: 128px; height: 128px;"></img>';
         })
             ->addColumn('action', function($query){
-                return '<button class="btn btn-xs btn-primary" href="'.route('schedule.edit',$query->id).'">Edit</button>'
+                return '<a class="btn btn-xs btn-primary" href="'.route('schedule.edit',$query->id).'">Edit</a>'
                    .Form::open([
                 "method" => "DELETE",
                 "id"     =>"form-delete",
